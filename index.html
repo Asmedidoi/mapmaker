@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Map Maker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Fantasy Map Maker</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Create Map</a></li>
+                <li><a href="#">Tutorial</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="map-creation">
+            <h2>Create Your Map</h2>
+            <label for="seedInput">Enter Seed: </label>
+            <input type="text" id="seedInput" placeholder="Enter seed here...">
+            <button id="generateMap">Generate Terrain</button>
+
+            <div id="map-container">
+                <canvas id="mapCanvas" width="800" height="600"></canvas>
+            </div>
+            <button id="downloadMap">Download Map</button>
+        </section>
+    </main>
+    <script src="perlin.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
