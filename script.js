@@ -10,7 +10,9 @@ const height = mapCanvas.height;
 let scale = 0.01; // Adjust the scale for noise (larger value = zoomed out, smaller = zoomed in)
 noise.seed(Math.random());
 
-document.getElementById('generateMap').addEventListener('click', generateTerrain);
+document.getElementById('generateMap').addEventListener('click', () => {
+    reload(width / 2, height / 2);
+});
 document.getElementById('downloadMap').addEventListener('click', downloadMap);
 
 mapCanvas.addEventListener("mousedown", (e) => {
@@ -34,8 +36,9 @@ mapCanvas.addEventListener("wheel", function(event) {
 
     // Prevent the default scroll behavior (like page scrolling)
     event.preventDefault();
-
-    console.log("ho")
+    
+    
+    console.log(event.deltaY)
 });
 
 for (let y = 0; y < height; y++) {
@@ -75,13 +78,13 @@ function generateTerrain() {
 }
 
 // Draw the generated terrain on the canvas
-function drawTerrain() {
+function drawTerrain(x, y) {
     const width = mapCanvas.width;
     const height = mapCanvas.height;
 
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            const heightValue = mapData[y][x];
+    for (let i = y - height / 2; i < height; i++) {
+        for (let j = 0; j < width; j++) {
+            const heightValue = mapData[i][j];
 
             // Simple coloring based on terrain height
             if (heightValue < 100) {
@@ -94,7 +97,7 @@ function drawTerrain() {
                 ctx.fillStyle = 'gray';       // Mountains
             }
 
-            ctx.fillRect(x, y, 1, 1);  // Draw a 1px square for each pixel in the map
+            ctx.fillRect(j, i, 1, 1);  // Draw a 1px square for each pixel in the map
         }
     }
 
@@ -109,6 +112,11 @@ function placeLandmark(e) {
 
     landmarks.push({ x, y });
     drawLandmarks();
+}
+
+function reload (x, y) {
+    generateTerrain()
+    drawTerrain(x, y)
 }
 
 // Draw the landmarks on top of the terrain
@@ -131,7 +139,7 @@ function downloadMap() {
 
 //function animate(){
 //    requestAnimationFrame(animate);
-    drawTerrain();
+    drawTerrain(width / 2, height / 2);
 //}
 
 //animate()
